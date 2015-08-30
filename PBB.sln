@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBB", "PBB\PBB.csproj", "{FAB5A901-5E1C-4ACA-83AA-3A8D7FE33B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Businesslayer", "Businesslayer\Businesslayer.csproj", "{4041EC9D-BE2D-4F20-8B8E-AB878D74D807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cleaner", "Cleaner\Cleaner.csproj", "{C0BCFF88-1B22-45D0-BD94-12E75FF83308}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAB5A901-5E1C-4ACA-83AA-3A8D7FE33B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB5A901-5E1C-4ACA-83AA-3A8D7FE33B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB5A901-5E1C-4ACA-83AA-3A8D7FE33B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB5A901-5E1C-4ACA-83AA-3A8D7FE33B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4041EC9D-BE2D-4F20-8B8E-AB878D74D807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4041EC9D-BE2D-4F20-8B8E-AB878D74D807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4041EC9D-BE2D-4F20-8B8E-AB878D74D807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4041EC9D-BE2D-4F20-8B8E-AB878D74D807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
