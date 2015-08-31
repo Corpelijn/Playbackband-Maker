@@ -48,9 +48,6 @@ namespace PBB
 
         void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            bloks.Clear();
-            panel2.Controls.Clear();
-
             CreateBlock("Intro", 1);
 
             for (int i = 1; i < numericUpDown1.Value - 1; i++)

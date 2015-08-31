@@ -33,12 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.7.2.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\Bas\Downloads\NAudio-Release\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Lame, Version=1.0.2.33669, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\Bas\Downloads\NAudio.Lame-master\NAudio.Lame-master\NAudio.Lame.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="taglib-sharp, Version=2.0.3.7, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\Bas\Downloads\taglib-sharp-2.0.3.7-windows\taglib-sharp-2.0.3.7-windows\Libraries\taglib-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddMuziek.cs">
@@ -53,6 +65,20 @@
     <Compile Include="BlokInfo.Designer.cs">
       <DependentUpon>BlokInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Businesslayer\Blok.cs" />
+    <Compile Include="Businesslayer\Exceptions\IllegalArgumentException.cs" />
+    <Compile Include="Businesslayer\File.cs" />
+    <Compile Include="Businesslayer\FileInfo.cs" />
+    <Compile Include="Businesslayer\Fragment.cs" />
+    <Compile Include="Businesslayer\Liedje.cs" />
+    <Compile Include="Businesslayer\Playbackband.cs" />
+    <Compile Include="Businesslayer\Render\PBBRenderer.cs" />
+    <Compile Include="Businesslayer\Render\WAV\FadeInOutSampleProvider.cs" />
+    <Compile Include="Businesslayer\Render\WAV\WAVFile.cs" />
+    <Compile Include="Businesslayer\Render\WAV\WAVFileExceptions.cs" />
+    <Compile Include="Businesslayer\Render\WAV\WAVFileMode.cs" />
+    <Compile Include="Businesslayer\Render\WAV\WAVFormat.cs" />
+    <Compile Include="Businesslayer\Render\WAV\WAVInputFile.cs" />
     <Compile Include="CustomExport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +251,7 @@
   <ItemGroup>
     <None Include="Resources\working.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

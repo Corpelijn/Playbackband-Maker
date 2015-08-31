@@ -5,15 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Businesslayer;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using PBB.Businesslayer;
 
 namespace PBB
 {
     public partial class Form1 : Form
     {
-        private Playbackband currentPBB;
+        //private Playbackband currentPBB;
 
         [DllImport("user32.dll")]
         static extern bool LockWindowUpdate(IntPtr hWndLock);
@@ -45,7 +45,8 @@ namespace PBB
         {
             backgroundWorker1.RunWorkerAsync();
 
-            currentPBB.Save();
+            //currentPBB.Save();
+            Playbackband.Instance.Save();
 
             backgroundWorker1.CancelAsync();
         }
@@ -61,8 +62,9 @@ namespace PBB
 
             backgroundWorker1.RunWorkerAsync();
 
-            File f = new File(of.FileName);
-            currentPBB = f.Open();
+            //File f = new File(of.FileName);
+            //currentPBB = f.Open();
+            Playbackband.LoadPlaybackband(of.FileName);
 
             WorkingControlsEnabled(true);
 
@@ -140,18 +142,22 @@ namespace PBB
             //Vind het blok waarin het nummer zit
             int index_to_use = am.Nummer - 1;
             int index_blok = 0;
-            for (int i = 0; i < currentPBB.Blokken.Count; i++)
+            for (int i = 0; i < Playbackband.Instance.Blokken.Count; i++)
+            //for (int i = 0; i < currentPBB.Blokken.Count; i++)
             {
-                if (currentPBB.Blokken[i].AantalInBlok <= index_to_use)
+                if (Playbackband.Instance.Blokken[i].AantalInBlok <= index_to_use)
+                //if (currentPBB.Blokken[i].AantalInBlok <= index_to_use)
                 {
-                    index_to_use -= currentPBB.Blokken[i].AantalInBlok;
+                    index_to_use -= Playbackband.Instance.Blokken[i].AantalInBlok;
+                    //index_to_use -= currentPBB.Blokken[i].AantalInBlok;
                     index_blok++;
                 }
                 else
                     break;
             }
 
-            currentPBB.Blokken[index_blok].Fragmenten[index_to_use].Liedje = new Liedje(am.Artiest, am.Titel, Convert.ToDouble(fi[2]), filename);
+            Playbackband.Instance.Blokken[index_blok].Fragmenten[index_to_use].Liedje = new Liedje(am.Artiest, am.Titel, Convert.ToDouble(fi[2]), filename);
+            //currentPBB.Blokken[index_blok].Fragmenten[index_to_use].Liedje = new Liedje(am.Artiest, am.Titel, Convert.ToDouble(fi[2]), filename);
 
             UpdateView(am.Nummer - 1);
 
@@ -181,14 +187,21 @@ namespace PBB
 
             backgroundWorker1.RunWorkerAsync();
 
-            currentPBB = new Playbackband(sf.FileName);
+            //currentPBB = new Playbackband(sf.FileName);
 
-            for (int i = npbb.Blokken.Count -1; i > -1 ; i--)
+            //for (int i = npbb.Blokken.Count -1; i > -1 ; i--)
+            //{
+            //    currentPBB.AddBlok(((BlokInfo)npbb.Blokken[i]).Naam, (int)((BlokInfo)npbb.Blokken[i]).AantalNummers);
+            //}
+
+            //currentPBB.Save();
+
+            Playbackband.CreateNewPlaybackband(sf.FileName);
+
+            foreach (BlokInfo bi in npbb.Blokken)
             {
-                currentPBB.AddBlok(((BlokInfo)npbb.Blokken[i]).Naam, (int)((BlokInfo)npbb.Blokken[i]).AantalNummers);
+                Playbackband.Instance.AddBlok(bi.Naam, (int)bi.AantalNummers);
             }
-
-            currentPBB.Save();
 
             WorkingControlsEnabled(true);
 
@@ -205,14 +218,16 @@ namespace PBB
             {
                 panel1.Controls.Clear();
                 int countnum = 1;
-                for (int i = 0; i < currentPBB.Blokken.Count; i++)
+                for(int i = 0; i<Playbackband.Instance.GetBlokkenCount(); i++)
+                //foreach (Blok b in Playbackband.Instance.GetBlokken())
                 {
-                    for (int j = 0; j < currentPBB.Blokken[i].AantalInBlok; j++)
+                    for(int j = 0; j<Playbackband.Instance.GetBlok(i).GetFragmentCount(); j++)
+                    //foreach (Fragment f in b.GetFragmenten())
                     {
-                        LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[i].Fragmenten[j]);
+                        LiedjeControl lc1 = new LiedjeControl(Playbackband.Instance.GetFragment(j));
                         if (j == 0)
                         {
-                            lc1.Blok = currentPBB.Blokken[i].Beschrijving;
+                            lc1.Blok = Playbackband.Instance.GetBlok(i).Beschrijving;
                         }
                         lc1.Parent = panel1;
                         lc1.ID = countnum;
@@ -223,29 +238,49 @@ namespace PBB
                         lc1.RenewMe += lc1_RenewMe;
                         countnum++;
                     }
-
                 }
+                //for (int i = 0; i < currentPBB.Blokken.Count; i++)
+                //{
+                //    for (int j = 0; j < currentPBB.Blokken[i].AantalInBlok; j++)
+                //    {
+                //        LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[i].Fragmenten[j]);
+                //        if (j == 0)
+                //        {
+                //            lc1.Blok = currentPBB.Blokken[i].Beschrijving;
+                //        }
+                //        lc1.Parent = panel1;
+                //        lc1.ID = countnum;
+                //        lc1.Dock = DockStyle.Top;
+                //        lc1.BringToFront();
+                //        lc1.RequestRodeDraad += lc1_RequestRodeDraad;
+                //        lc1.RodeDraadChanged += lc1_RodeDraadChanged;
+                //        lc1.RenewMe += lc1_RenewMe;
+                //        countnum++;
+                //    }
+
+                //}
             }
             else
             {
                 //Vind het blok waarin het nummer zit
-                int index_to_use = indexToUpdate;
-                int index_blok = 0;
-                for (int i = 0; i < currentPBB.Blokken.Count; i++)
-                {
-                    if (currentPBB.Blokken[i].AantalInBlok <= index_to_use)
-                    {
-                        index_to_use -= currentPBB.Blokken[i].AantalInBlok;
-                        index_blok++;
-                    }
-                    else
-                        break;
-                }
+                //int index_to_use = indexToUpdate;
+                //int index_blok = 0;
+                //for (int i = 0; i < currentPBB.Blokken.Count; i++)
+                //{
+                //    if (currentPBB.Blokken[i].AantalInBlok <= index_to_use)
+                //    {
+                //        index_to_use -= currentPBB.Blokken[i].AantalInBlok;
+                //        index_blok++;
+                //    }
+                //    else
+                //        break;
+                //}
 
-                LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[index_blok].Fragmenten[index_to_use]);
-                if (index_to_use == 0)
+                //LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[index_blok].Fragmenten[index_to_use]);
+                LiedjeControl lc1 = new LiedjeControl(Playbackband.Instance.GetFragment(indexToUpdate));
+                if (Playbackband.Instance.ResolveGlobalFragmentIDToFragmentID(indexToUpdate) == 0)
                 {
-                    lc1.Blok = currentPBB.Blokken[index_blok].Beschrijving;
+                    lc1.Blok = Playbackband.Instance.GetBlok(Playbackband.Instance.ResolveGlobalFragmentIDToBlokID(indexToUpdate)).Beschrijving;
                 }
                 lc1.Parent = panel1;
                 lc1.ID = indexToUpdate + 1;
@@ -285,17 +320,28 @@ namespace PBB
 
         void lc1_RequestRodeDraad(LiedjeControl sender)
         {
-            for (int i = 0; i < currentPBB.Blokken.Count; i++)
+            for (int i = 0; i < Playbackband.Instance.GetBlokkenCount(); i++)
             {
-                for (int j = 0; j < currentPBB.Blokken[i].Fragmenten.Count; j++)
+                for (int j = 0; j < Playbackband.Instance.GetBlok(i).GetFragmentCount(); j++)
                 {
-                    if (currentPBB.Blokken[i].Fragmenten[j].RodeDraad == 1)
+                    if (Playbackband.Instance.Blokken[i].Fragmenten[j].RodeDraad == 1)
                     {
-                        sender.Liedje = currentPBB.Blokken[i].Fragmenten[j];
+                        sender.Liedje = Playbackband.Instance.Blokken[i].Fragmenten[j];
                         break;
                     }
                 }
             }
+            //for (int i = 0; i < currentPBB.Blokken.Count; i++)
+            //{
+            //    for (int j = 0; j < currentPBB.Blokken[i].Fragmenten.Count; j++)
+            //    {
+            //        if (currentPBB.Blokken[i].Fragmenten[j].RodeDraad == 1)
+            //        {
+            //            sender.Liedje = currentPBB.Blokken[i].Fragmenten[j];
+            //            break;
+            //        }
+            //    }
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -337,7 +383,8 @@ namespace PBB
             string directory = File.defaultDir + "\\playall" + DateTime.Now.Ticks.ToString();
             System.IO.Directory.CreateDirectory(directory);
 
-            PlayAll pa = new PlayAll(currentPBB, directory);
+            PlayAll pa = new PlayAll(Playbackband.Instance, directory);
+            //PlayAll pa = new PlayAll(currentPBB, directory);
             pa.FormClosing += pa_FormClosing;
 
             pa.Show();
@@ -371,26 +418,30 @@ namespace PBB
         {
             //Export ex = new Export(currentPBB);
             //ex.ShowDialog();
-            
-            Exporteren ex = new Exporteren(currentPBB);
+
+            Exporteren ex = new Exporteren(Playbackband.Instance);
+            //Exporteren ex = new Exporteren(currentPBB);
             if (ex.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
             {
                 return;
             }
 
-            CustomExport ce = new CustomExport(currentPBB, ex.Filename, ex.Multifiles);
+            CustomExport ce = new CustomExport(Playbackband.Instance, ex.Filename, ex.Multifiles);
+            //CustomExport ce = new CustomExport(currentPBB, ex.Filename, ex.Multifiles);
             ce.ShowDialog();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Enabled = false; 
-            if (currentPBB != null)
+            if(Playbackband.Instance != null)
+            //if (currentPBB != null)
             {
                 DialogResult reply = MessageBox.Show("Wilt u de wijzigingen opslaan voor het afsluiten?", "Playbackband maker", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (reply == System.Windows.Forms.DialogResult.Yes)
                 {
-                    currentPBB.Save();
+                    Playbackband.Instance.Save();
+                    //currentPBB.Save();
                 }
                 else if (reply == System.Windows.Forms.DialogResult.Cancel)
                 {
@@ -412,30 +463,36 @@ namespace PBB
 
         private void verplaatsenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Verplaats vp = new Verplaats(currentPBB);
+            Verplaats vp = new Verplaats(Playbackband.Instance);
+            //Verplaats vp = new Verplaats(currentPBB);
             if (vp.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            currentPBB.VerplaatsNummer(vp.OriginalNumber, vp.DestinationNumber, vp.DestinationNumber2);
+            Playbackband.Instance.VerplaatsNummer(vp.OriginalNumber, vp.DestinationNumber, vp.DestinationNumber2);
+            //currentPBB.VerplaatsNummer(vp.OriginalNumber, vp.DestinationNumber, vp.DestinationNumber2);
 
             UpdateView();
         }
 
         private void wisselenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Wisselen vp = new Wisselen(currentPBB);
+            Wisselen vp = new Wisselen(Playbackband.Instance);
+            //Wisselen vp = new Wisselen(currentPBB);
             if (vp.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            currentPBB.VerwisselNummer(vp.OriginalNumber, vp.DestinationNumber);
+            Playbackband.Instance.VerwisselNummer(vp.OriginalNumber, vp.DestinationNumber);
+            //currentPBB.VerwisselNummer(vp.OriginalNumber, vp.DestinationNumber);
 
             UpdateView();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (currentPBB != null)
+            if (Playbackband.Instance != null)
+            //if (currentPBB != null)
             {
+                Playbackband.Instance.CreateAutoSave(File.mainDir + "\\autoSave.pbb");
                 //currentPBB.CreateAutoSave(File.mainDir + "\\autoSave.pbb");
             }
         }
