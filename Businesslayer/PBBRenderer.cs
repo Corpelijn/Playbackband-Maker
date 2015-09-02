@@ -140,7 +140,14 @@ namespace Businesslayer
 
                     fragments[i].Liedje.WriteToFile(MP3);
 
-                    ConvertMP3ToWaveFile(MP3, WAV);
+                    try
+                    {
+                        ConvertMP3ToWaveFile(MP3, WAV);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("convert: " + ex.Message);
+                    }
 
                     if (fragments[i].IsDummy())
                         continue;
@@ -177,12 +184,19 @@ namespace Businesslayer
                 for (int i = convertedFiles; i < unedited.Count; i++)
                 {
                     string outputFile = workingDir + "\\export\\trim\\" + (convertedFiles + 1).ToString() + ".wav";
-                    TrimWavFile(
-                        unedited[i],
-                        outputFile,
-                        TimeSpan.FromSeconds(fragmenten[convertedFiles].StartTijd),
-                        TimeSpan.FromSeconds(fragmenten[convertedFiles].StopTijd)
-                        );
+                    try
+                    {
+                        TrimWavFile(
+                            unedited[i],
+                            outputFile,
+                            TimeSpan.FromSeconds(fragmenten[convertedFiles].StartTijd),
+                            TimeSpan.FromSeconds(fragmenten[convertedFiles].StopTijd)
+                            );
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("trim: " + ex.Message);
+                    }
 
                     lock(trimmedWAV)
                         trimmedWAV.Add(outputFile);
@@ -218,13 +232,20 @@ namespace Businesslayer
                     string outputFile = workingDir + "\\export\\normal\\" + (convertedFiles + 1).ToString() + ".wav";
                     string inputFile = trim[i];
 
-                    Process p = new Process();
-                    p.StartInfo.FileName = "sox.exe";
-                    p.StartInfo.Arguments = "--norm \"" + inputFile + "\" \"" + outputFile + "\"";
-                    //"/r /c \"" + inputFile + "\""));
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
-                    p.WaitForExit();
+                    try
+                    {
+                        Process p = new Process();
+                        p.StartInfo.FileName = "sox.exe";
+                        p.StartInfo.Arguments = "--norm \"" + inputFile + "\" \"" + outputFile + "\"";
+                        //"/r /c \"" + inputFile + "\""));
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.Start();
+                        p.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("normalize: " + ex.Message);
+                    }
 
                     //System.IO.File.Copy(inputFile, outputFile);
 
@@ -262,12 +283,19 @@ namespace Businesslayer
                     string outputFile = workingDir + "\\export\\fade\\" + (convertedFiles + 1).ToString() + ".wav";
                     string inputFile = fades[i];
 
-                    Process p = new Process();
-                    p.StartInfo.FileName = "sox.exe";
-                    p.StartInfo.Arguments = "\"" + inputFile + "\" -t wav \"" + outputFile + "\" fade h " + (fragmenten[i].FadeIn - new DateTime(2000, 1, 1)).ToString("G").Replace(",", ".").Remove(0, 2) + " 0 " + (fragmenten[i].FadeOut - new DateTime(2000, 1, 1)).ToString("G").Replace(",", ".").Remove(0, 2);
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.Start();
-                    p.WaitForExit();
+                    try
+                    {
+                        Process p = new Process();
+                        p.StartInfo.FileName = "sox.exe";
+                        p.StartInfo.Arguments = "\"" + inputFile + "\" -t wav \"" + outputFile + "\" fade h " + (fragmenten[i].FadeIn - new DateTime(2000, 1, 1)).ToString("G").Replace(",", ".").Remove(0, 2) + " 0 " + (fragmenten[i].FadeOut - new DateTime(2000, 1, 1)).ToString("G").Replace(",", ".").Remove(0, 2);
+                        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        p.Start();
+                        p.WaitForExit();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("fade: " + ex.Message);
+                    }
 
                     //System.IO.File.Copy(fades[i], outputFile);
 
@@ -488,7 +516,15 @@ namespace Businesslayer
                     endBytes = endBytes - endBytes % reader.WaveFormat.BlockAlign;
                     int endPosition = (int)reader.Length - endBytes;
 
-                    TrimWavFile(reader, writer, startPosition, endPosition);
+                    try
+                    {
+                        TrimWavFile(reader, writer, startPosition, endPosition);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("trim2: " + ex.Message);
+                        MessageBox.Show(start.ToString() + "\n\n" + end.ToString());
+                    }
                 }
             }
         }

@@ -100,7 +100,7 @@ namespace PBB
         {
             get
             {
-                return (double)(numericUpDown2.Value - (checkBox1.Checked ? 0 : numericUpDown4.Value));
+                return (double)(numericUpDown2.Value);// - (checkBox1.Checked ? 0 : numericUpDown4.Value));
             }
         }
 
@@ -108,7 +108,7 @@ namespace PBB
         {
             get
             {
-                return (double)(numericUpDown3.Value + (checkBox2.Checked ? 0 : numericUpDown5.Value));
+                return (double)(numericUpDown3.Value);// + (checkBox2.Checked ? 0 : numericUpDown5.Value));
             }
         }
 

@@ -87,7 +87,7 @@ namespace Businesslayer
         {
             get
             {
-                return (this.begintijd - new DateTime(2000, 1, 1)).TotalSeconds - (FIBinnen ? 0 : (this.fadein - new DateTime(2000, 1, 1)).TotalSeconds * 2);
+                return (this.begintijd - new DateTime(2000, 1, 1)).TotalSeconds - (FIBinnen ? 0 : (this.fadein - new DateTime(2000, 1, 1)).TotalSeconds);// * 2);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Businesslayer
         {
             get
             {
-                double ret_val = this.liedje.Lengte - (this.eindtijd - new DateTime(2000, 1, 1)).TotalSeconds + (FOBinnen ? -(this.fadeout - new DateTime(2000, 1, 1)).TotalSeconds : 0) - 0.5;
+                double ret_val = this.liedje.Lengte - (this.eindtijd - new DateTime(2000, 1, 1)).TotalSeconds - (!FOBinnen ? (this.fadeout - new DateTime(2000, 1, 1)).TotalSeconds : 0);// -0.5;
                 return (ret_val < 0 ? 0 : ret_val);
             }
         }
