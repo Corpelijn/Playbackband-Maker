@@ -53,6 +53,12 @@
     <Compile Include="BlokInfo.Designer.cs">
       <DependentUpon>BlokInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditPBB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditPBB.Designer.cs">
+      <DependentUpon>EditPBB.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomExport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BlokInfo.resx">
       <DependentUpon>BlokInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPBB.resx">
+      <DependentUpon>EditPBB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomExport.resx">
       <DependentUpon>CustomExport.cs</DependentUpon>

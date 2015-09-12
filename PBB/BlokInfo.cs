@@ -8,18 +8,16 @@ using System.Windows.Forms;
 
 namespace PBB
 {
-    public partial class BlokInfo : UserControl, IComparable
+    public partial class BlokInfo : UserControl
     {
-        private decimal lastValue;
-        private int p_id;
         private string placed_name;
         private decimal placed_amount;
+        public bool controle;
+        public int verwijder;
 
         public BlokInfo()
         {
             InitializeComponent();
-            this.p_id = 0;
-            lastValue = 0;
             placed_name = "";
             placed_amount = -1;
         }
@@ -36,46 +34,29 @@ namespace PBB
             set { textBox1.Text = value; }
         }
 
-        public int PositionID
+        public bool Controle
         {
-            get { return (int)p_id; }
-            set { p_id = value; label2.Text = p_id.ToString(); }
+            get { return controle; }
+            set 
+            { 
+                controle = value;
+                if (!controle)
+                {
+                    label3.Visible = false;
+                    this.MaximumSize = new Size(440, 41);
+                }
+                else
+                {
+                    label3.Visible = true;
+                    this.MaximumSize = new Size(0, 0);
+                }
+            }
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        public int VerwijderbareFragmenten
         {
-            if (lastValue < numericUpDown2.Value)
-            {
-                p_id -= 15;
-            }
-            else
-            {
-                p_id += 15;
-            }
-
-            OnPositionUpdated();
-
-            label2.Text = p_id.ToString();
-            lastValue = numericUpDown2.Value;
-        }
-
-        public event PositionUpdatedEventHandler PositionUpdated;
-        public delegate void PositionUpdatedEventHandler(BlokInfo sender);
-        public void OnPositionUpdated()
-        {
-            if (PositionUpdated != null)
-                PositionUpdated(this);
-        }
-
-        public int CompareTo(object obj)
-        {
-            if(obj.GetType() != typeof(BlokInfo))
-            {
-                return 0;
-            }
-
-            BlokInfo bi = (BlokInfo)obj;
-            return this.PositionID.CompareTo(bi.PositionID);
+            get { return verwijder; }
+            set { verwijder = value; label3.Text = "Fragmenten die verwijderd kunnen worden: " + verwijder; }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -85,14 +66,13 @@ namespace PBB
 
         public void SetInitValues(string name, int amount)
         {
-            if (placed_name == "")
-            {
-                this.placed_name = name;
-            }
-            if (placed_amount == -1)
-            {
-                this.placed_amount = amount;
-            }
+            textBox1.Text = name;
+            numericUpDown1.Value = amount;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            this.placed_amount = numericUpDown1.Value;
         }
     }
 }

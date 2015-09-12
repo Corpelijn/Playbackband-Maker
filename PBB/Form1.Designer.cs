@@ -49,6 +49,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.blokkenWijzigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,7 +135,9 @@
             this.muziekToolStripMenuItem1,
             this.toolStripMenuItem2,
             this.toolStripSeparator3,
-            this.allesAfspelenToolStripMenuItem});
+            this.allesAfspelenToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.blokkenWijzigenToolStripMenuItem});
             this.muziekToolStripMenuItem.Name = "muziekToolStripMenuItem";
             this.muziekToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.muziekToolStripMenuItem.Text = "&Playbackband";
@@ -212,6 +216,18 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            // 
+            // blokkenWijzigenToolStripMenuItem
+            // 
+            this.blokkenWijzigenToolStripMenuItem.Name = "blokkenWijzigenToolStripMenuItem";
+            this.blokkenWijzigenToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.blokkenWijzigenToolStripMenuItem.Text = "&Blokken wijzigen";
+            this.blokkenWijzigenToolStripMenuItem.Click += new System.EventHandler(this.blokkenWijzigenToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -254,6 +270,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem wisselenToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem blokkenWijzigenToolStripMenuItem;
     }
 }
 

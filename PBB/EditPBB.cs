@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Businesslayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,13 +9,16 @@ using System.Windows.Forms;
 
 namespace PBB
 {
-    public partial class newPBB : Form
+    public partial class EditPBB : Form
     {
         private Dictionary<int, string> Roman;
 
         private List<BlokInfo> bloks;
 
-        public newPBB()
+        private List<int> legeBlokken;
+        private List<int[]> legeFragmenten;
+
+        public EditPBB(Playbackband pbb)
         {
             InitializeComponent();
 
@@ -28,6 +32,31 @@ namespace PBB
             Roman.Add(7, "VII");
             Roman.Add(8, "VIII");
             bloks = new List<BlokInfo>();
+
+            legeBlokken = new List<int>();
+            legeFragmenten = new List<int[]>();
+        }
+
+        private void AnalysePBB(Playbackband pbb)
+        {
+            // Vind lege blokken en fragmenten en markeer deze
+            for (int i = 0; i < pbb.Blokken.Count; i++)
+            {
+                bool emptyBlok = true;
+                for (int j = 0; j < pbb.Blokken[i].Fragmenten.Count; j++)
+                {
+                    if (pbb.Blokken[i].Fragmenten[j].IsDummy())
+                    {
+                        legeFragmenten.Add(new int[] { i, j });
+                    }
+                    else emptyBlok = false;
+                }
+
+                if (emptyBlok)
+                {
+                    legeBlokken.Add(i);
+                }
+            }
         }
 
         public string Filename
@@ -48,19 +77,7 @@ namespace PBB
 
         void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            bloks.Clear();
-            panel2.Controls.Clear();
 
-            CreateBlock("Intro", 1);
-
-            for (int i = 1; i < numericUpDown1.Value - 1; i++)
-            {
-                string roman;
-                Roman.TryGetValue(i, out roman);
-                CreateBlock("Blok " + roman);
-            }
-
-            CreateBlock("Finale", 1);
         }
 
         private void CreateBlock(string title, int aantal = 10)

@@ -439,5 +439,10 @@ namespace PBB
                 //currentPBB.CreateAutoSave(File.mainDir + "\\autoSave.pbb");
             }
         }
+
+        private void blokkenWijzigenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
