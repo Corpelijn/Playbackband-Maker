@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Main";
+}
+
+<br />
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Beschikbare playbackbanden
+        </div>
+        <div class="panel-body">
+            @for (int i = 0; i < 10; i++)
+            {
+                <div class="col-md-3">
+                    <a href="Index">
+                        <div class="panel panel-green ">
+                            <div class="panel-heading">
+                                <h4 style="text-align: center; color: #ffffff;">Playbackband 2015</h4>
+                            </div>
+
+                            <div class="panel-footer">
+                                <div style="text-align: center">
+                                    23 januari 2015<br />
+                                    24 januari 2015
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="col-md-1"></div>

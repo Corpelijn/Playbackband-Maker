@@ -23,31 +23,18 @@ namespace PBB
             InitializeComponent();
 
             WorkingControlsEnabled(false);
-
-            if (System.IO.File.Exists(File.mainDir + "\\AutoSave.pbb"))
-            {
-                //if (MessageBox.Show("Er is iets mis gegaan tijdens het afsluiten van de applicatie de laatste keer dat de applicatie gestart is. Er is een herstel bestand beschikbaar.\n\nWilt u dit bestand herstellen?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                //{
-                //    backgroundWorker1.RunWorkerAsync();
-
-                //    File f = new File(File.mainDir + "\\AutoSave.pbb");
-                //    currentPBB = f.Open();
-                //    WorkingControlsEnabled(true);
-
-                //    UpdateView();
-
-                //    backgroundWorker1.CancelAsync();
-                //}
-            }
         }
 
         private void opslaanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            //backgroundWorker1.RunWorkerAsync();
+            ShowLoadingScreen(true);
 
-            currentPBB.Save();
+            //currentPBB.Save();
+            SavePlaybackband();
 
-            backgroundWorker1.CancelAsync();
+            //backgroundWorker1.CancelAsync();
+            ShowLoadingScreen(false);
         }
 
         private void openenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,7 +46,8 @@ namespace PBB
             if (of.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            backgroundWorker1.RunWorkerAsync();
+            //backgroundWorker1.RunWorkerAsync();
+            ShowLoadingScreen(true);
 
             File f = new File(of.FileName);
             currentPBB = f.Open();
@@ -68,7 +56,8 @@ namespace PBB
 
             UpdateView();
 
-            backgroundWorker1.CancelAsync();
+            //backgroundWorker1.CancelAsync();
+            ShowLoadingScreen(false);
         }
 
         private void afsluitenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,7 +88,8 @@ namespace PBB
                 filename = of.FileName;
             }
 
-            backgroundWorker1.RunWorkerAsync();
+            ShowLoadingScreen(true);
+            //backgroundWorker1.RunWorkerAsync();
 
             // vind het eerste nummer dat niet in gebruik is
             int index_not_in_use = 0;
@@ -130,12 +120,14 @@ namespace PBB
                 EnableNumberSelection = (prefixNummer != -1 ? false : true)
             };
 
-            backgroundWorker1.CancelAsync();
+            //backgroundWorker1.CancelAsync();
+            ShowLoadingScreen(false);
 
             if (am.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            backgroundWorker1.RunWorkerAsync();
+            ShowLoadingScreen(true);
+            //backgroundWorker1.RunWorkerAsync();
 
             //Vind het blok waarin het nummer zit
             int index_to_use = am.Nummer - 1;
@@ -155,7 +147,8 @@ namespace PBB
 
             UpdateView(am.Nummer - 1);
 
-            backgroundWorker1.CancelAsync();
+            //backgroundWorker1.CancelAsync();
+            ShowLoadingScreen(false);
         }
 
         void WorkingControlsEnabled(bool status)
@@ -179,7 +172,8 @@ namespace PBB
             if (npbb.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            backgroundWorker1.RunWorkerAsync();
+            //backgroundWorker1.RunWorkerAsync();
+            ShowLoadingScreen(true);
 
             currentPBB = new Playbackband(sf.FileName);
 
@@ -194,7 +188,28 @@ namespace PBB
 
             UpdateView();
 
-            backgroundWorker1.CancelAsync();
+            //backgroundWorker1.CancelAsync();
+            ShowLoadingScreen(false);
+        }
+
+        private void SavePlaybackband()
+        {
+            if (currentPBB.Filename == "")
+            {
+                SaveFileDialog sf = new SaveFileDialog();
+                sf.FileName = "example.pbb";
+                sf.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                sf.Filter = "Playbackband bestanden|*.pbb";
+
+                if (sf.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                currentPBB.Filename = sf.FileName;
+            }
+
+            currentPBB.Save();
         }
 
         private void UpdateView(int indexToUpdate = -1)
@@ -255,6 +270,8 @@ namespace PBB
                 panel1.Controls.SetChildIndex(lc1, panel1.Controls.Count - 1 - indexToUpdate);
                 panel1.Controls.RemoveAt(panel1.Controls.Count - 2 - indexToUpdate);
             }
+
+            this.Text = "Playbackband maker - " + currentPBB.Filename;
 
             LockWindowUpdate(IntPtr.Zero);
         }
@@ -367,6 +384,22 @@ namespace PBB
             l.Hide();
         }
 
+        private void ShowLoadingScreen(bool action)
+        {
+            if (action)
+            {
+                while (backgroundWorker1.IsBusy)
+                {
+                    Application.DoEvents();
+                }
+                backgroundWorker1.RunWorkerAsync();
+            }
+            else
+            {
+                backgroundWorker1.CancelAsync();
+            }
+        }
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //Export ex = new Export(currentPBB);
@@ -390,7 +423,8 @@ namespace PBB
                 DialogResult reply = MessageBox.Show("Wilt u de wijzigingen opslaan voor het afsluiten?", "Playbackband maker", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (reply == System.Windows.Forms.DialogResult.Yes)
                 {
-                    currentPBB.Save();
+                    //currentPBB.Save();
+                    SavePlaybackband();
                 }
                 else if (reply == System.Windows.Forms.DialogResult.Cancel)
                 {
@@ -399,10 +433,13 @@ namespace PBB
                 }
             }
 
-            Process p = new Process();
-            p.StartInfo.FileName = "cleaner.exe";
-            p.StartInfo.Arguments = "pid=" + Process.GetCurrentProcess().Id.ToString();
-            p.Start();
+            if (System.IO.File.Exists("cleaner.exe"))
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = "cleaner.exe";
+                p.StartInfo.Arguments = "pid=" + Process.GetCurrentProcess().Id.ToString();
+                p.Start();
+            }
 
             if (System.IO.File.Exists(File.mainDir + "\\AutoSave.pbb"))
             {
@@ -436,7 +473,36 @@ namespace PBB
         {
             if (currentPBB != null)
             {
-                //currentPBB.CreateAutoSave(File.mainDir + "\\autoSave.pbb");
+                currentPBB.CreateAutoSave(File.mainDir + "\\autoSave.pbb");
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            string filename = "";
+            if (System.IO.File.Exists(File.mainDir + "\\AutoSave.pbb.old"))
+                filename = File.mainDir + "\\AutoSave.pbb.old";
+            else if (System.IO.File.Exists(File.mainDir + "\\AutoSave.pbb"))
+                filename = File.mainDir + "\\AutoSave.pbb";
+
+            if (filename != "")
+            {
+                if (MessageBox.Show("Er is iets mis gegaan tijdens het afsluiten van de applicatie de laatste keer dat de applicatie gestart is. Er is een herstel bestand beschikbaar.\n\nWilt u dit bestand herstellen?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    //backgroundWorker1.RunWorkerAsync();
+                    ShowLoadingScreen(true);
+
+                    File f = new File(filename);
+                    currentPBB = f.Open();
+                    WorkingControlsEnabled(true);
+
+                    currentPBB.Filename = "";
+
+                    UpdateView();
+
+                    //backgroundWorker1.CancelAsync();
+                    ShowLoadingScreen(false);
+                }
             }
         }
     }

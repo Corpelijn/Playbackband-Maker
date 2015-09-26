@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-default">
+
+    <!-- /.panel-heading -->
+    <div class="panel-heading">
+        <div class="col-md-2 col-xs-2 btn btn-primary btn-xs" type="button">Playbackband aanpassen</div>
+        <div class="col-md-8 col-xs-8"></div>
+        <div class="col-md-2 col-xs-2 btn btn-success btn-xs" type="button">Downloaden als Excel document</div>
+        <br />
+    </div>
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>NR.</th>
+                        <th>ARTIEST / TITEL</th>
+                        <th>I.D.</th>
+                        <th style="text-align: center;">FRAGMENT</th>
+                        <th>TIJD</th>
+                        <th style="text-align: center;">BEGIN<br />
+                            TOT. TIJD</th>
+                        <th>NA(A)MEN UITVOERDERS<br />
+                            WIJZE VAN UITVOEREN</th>
+                        <th style="text-align: center;">BELICHTING<br />
+                            TV = theaterverlichting</th>
+                        <th colspan="2" style="text-align: center;">OPKOMST | AFGAAN<br />
+                            L / R vanuit zaal gezien</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < PBB_Web.Classes.Domain.Playbackband.Instance.blokken.Count; i++)
+                    {
+                        for (int j = 0; j < PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten.Length; j++)
+                        {
+                            <tr class=" @if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j] != null) { if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].rodedraad) { @("danger") }} ">
+                            
+                            @if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j] != null)
+                            {
+                                <td>@(i * PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].aantal)</td>
+                                <td>
+                                    @if (j == 0)
+                                    { <b> @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].titel &nbsp;</b> }
+                                    @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].liedje.artiest / @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].liedje.titel
+                                </td>
+                                <td>NL</td>
+                                <td style="text-align: center;">@TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].begintijd).ToString("mm\\.ss") - @TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].eindtijd).ToString("mm\\.ss")</td>
+                                <td>@(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].eindtijd - PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].begintijd)</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: center;">
+                                    <div class="btn btn-primary btn-xs btn-outline">Bewerken</div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>00</td>
+                                <td>empty</td>
+                                <td>empty</td>
+                                <td style="text-align: center;">empty</td>
+                                <td>empty</td>
+                                <td>empty</td>
+                                <td>empty</td>
+                                <td style="text-align: center;">empty</td>
+                                <td style="text-align: right;">empty</td>
+                                <td style="text-align: center;">empty</td>
+                                <td style="text-align: center;"><div class="btn btn-primary btn-xs btn-outline">Toevoegen</div></td>
+                            }
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+

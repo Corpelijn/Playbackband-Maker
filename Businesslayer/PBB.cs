@@ -132,8 +132,19 @@ namespace Businesslayer
 
         public void CreateAutoSave(string filename)
         {
+            if (System.IO.File.Exists(filename))
+            {
+                System.IO.File.Move(filename, filename + ".old");
+            }
+            string oldFilename = this.Filename;
             this.Filename = filename;
             file.Save(this);
+            this.Filename = oldFilename;
+
+            if(System.IO.File.Exists(filename + ".old"))
+            {
+                System.IO.File.Delete(filename + ".old");
+            }
         }
 
     }
