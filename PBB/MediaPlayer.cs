@@ -269,9 +269,6 @@ namespace PBB
 
         private void selectionPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            if (displaymode)
-                return;
-
             int toAdd = 0;
             if (((Panel)sender).Name == "selectionPanel")
             {
@@ -279,11 +276,15 @@ namespace PBB
             }
             else if (((Panel)sender).Name == "fadeinPanel")
             {
+                if (displaymode)
+                    return;
                 toAdd += selectionPanel.Location.X;
                 toAdd += fadeinPanel.Location.X;
             }
             else if (((Panel)sender).Name == "fadeoutPanel")
             {
+                if (displaymode)
+                    return;
                 toAdd += selectionPanel.Location.X;
                 toAdd += fadeoutPanel.Location.X;
             }
@@ -501,6 +502,7 @@ namespace PBB
             if (wmp.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
                 OnPlaybackStopped();
+
                 timer2.Enabled = false;
             }
         }
