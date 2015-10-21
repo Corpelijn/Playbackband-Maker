@@ -8,12 +8,13 @@ namespace PBB_Web.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Login()
+        public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Index(string username, string password)
         {
             return View();
         }
