@@ -15,10 +15,15 @@ namespace Businesslayer
             string artiest = tagFile.Tag.FirstPerformer;
             string titel = tagFile.Tag.Title;
 
-            if (artiest == null)
+            if (artiest == null || artiest == "")
             {
                 // Controleer of de artiest staat aangegeven bij de titel
-                if (titel != null)
+                if (titel == null || titel == "")
+                {
+                    titel = System.IO.Path.GetFileNameWithoutExtension(filename);
+                }
+
+                if (titel != null && titel != "")
                 {
                     // Controleer of de titel gesplits kan worden
                     string[] title = titel.Split(new char[] {'-'});

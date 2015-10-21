@@ -183,7 +183,7 @@ namespace Businesslayer
 
                 for (int i = convertedFiles; i < unedited.Count; i++)
                 {
-                    string outputFile = workingDir + "\\export\\trim\\" + (convertedFiles + 1).ToString() + ".wav";
+                    string outputFile = workingDir + "\\export\\trim\\" + Path.GetFileNameWithoutExtension(unedited[i]) +".wav";
                     try
                     {
                         TrimWavFile(
@@ -229,18 +229,25 @@ namespace Businesslayer
 
                 for (int i = convertedFiles; i < trim.Count; i++)
                 {
-                    string outputFile = workingDir + "\\export\\normal\\" + (convertedFiles + 1).ToString() + ".wav";
+                    string outputFile = workingDir + "\\export\\normal\\" + Path.GetFileNameWithoutExtension(trim[i]) + ".wav";
                     string inputFile = trim[i];
 
                     try
                     {
                         Process p = new Process();
                         p.StartInfo.FileName = "sox.exe";
-                        p.StartInfo.Arguments = "--norm \"" + inputFile + "\" \"" + outputFile + "\"";
+                        p.StartInfo.Arguments = "--rate 44100 --norm \"" + inputFile + "\" \"" + outputFile + "\"";
                         //"/r /c \"" + inputFile + "\""));
+
+                        p.StartInfo.RedirectStandardError = true;
+                        p.StartInfo.UseShellExecute = false;
+
                         p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         p.Start();
                         p.WaitForExit();
+
+                        Console.WriteLine("SOX Output: ");
+                        Console.WriteLine(p.StandardError.ReadToEnd());
                     }
                     catch (Exception ex)
                     {

@@ -30,7 +30,8 @@ namespace PBB
             {
                 for (int j = 0; j < pbb.Blokken[i].Fragmenten.Count; j++)
                 {
-                    PBBRenderer.Instance.AddFragment(pbb.Blokken[i].Fragmenten[j]);
+                    if(!pbb.Blokken[i].Fragmenten[j].IsDummy())
+                        PBBRenderer.Instance.AddFragment(pbb.Blokken[i].Fragmenten[j]);
                 }
             }
 

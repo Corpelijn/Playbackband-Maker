@@ -2087,7 +2087,8 @@ namespace Businesslayer
                     int firstSampleRate = GetAudioFormat(pFileList[0]).SampleRateHz;
                     for (int i = 1; i < numFiles; ++i)
                     {
-                        if (GetAudioFormat(pFileList[i]).SampleRateHz != firstSampleRate)
+                        int Hz = GetAudioFormat(pFileList[i]).SampleRateHz;
+                        if (Hz != firstSampleRate)
                         {
                             sampleRatesMatch = false;
                             break;

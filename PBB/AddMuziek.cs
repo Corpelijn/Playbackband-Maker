@@ -53,5 +53,12 @@ namespace PBB
         {
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string temp = textBox1.Text;
+            textBox1.Text = textBox2.Text;
+            textBox2.Text = temp;
+        }
     }
 }
