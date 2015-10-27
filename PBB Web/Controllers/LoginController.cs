@@ -26,5 +26,10 @@ namespace PBB_Web.Controllers
 
             return View();
         }
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
 	}
 }

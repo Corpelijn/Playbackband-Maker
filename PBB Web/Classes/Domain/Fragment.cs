@@ -56,7 +56,7 @@ namespace PBB_Web.Classes.Domain
 
         private void ReadFromDatabase()
         {
-            DataTable dt = Database.DatabaseConnector.Instance.ExecuteQuery("select uitvoerder.id, voornaam, achternaam, Fragment_Per_Blok.Uitvoerwijze from fragment_per_blok join fragmenten_per_uitvoerder on Fragment_Per_Blok.Fragment_Id = Fragmenten_Per_Uitvoerder.Fragment_Koppeling_Id join uitvoerder on uitvoerder.id = fragmenten_per_uitvoerder.uitvoerder_id where fragment_id = " + id);
+            DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select uitvoerder.id, voornaam, achternaam, Fragment_Per_Blok.Uitvoerwijze from fragment_per_blok join fragmenten_per_uitvoerder on Fragment_Per_Blok.Fragment_Id = Fragmenten_Per_Uitvoerder.Fragment_Koppeling_Id join uitvoerder on uitvoerder.id = fragmenten_per_uitvoerder.uitvoerder_id where fragment_id = " + id);
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -71,7 +71,7 @@ namespace PBB_Web.Classes.Domain
             }
 
 
-            dt = Database.DatabaseConnector.Instance.ExecuteQuery("select beschrijving from Fragment_Per_Blok join verlichting_per_fragment on Verlichting_Per_Fragment.Fragment_Koppeling_Id = Fragment_Per_Blok.Id join verlichting on verlichting.id = Verlichting_Per_Fragment.Verlichting_Id where fragment_id = " + id);
+            dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select beschrijving from Fragment_Per_Blok join verlichting_per_fragment on Verlichting_Per_Fragment.Fragment_Koppeling_Id = Fragment_Per_Blok.Id join verlichting on verlichting.id = Verlichting_Per_Fragment.Verlichting_Id where fragment_id = " + id);
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -80,14 +80,14 @@ namespace PBB_Web.Classes.Domain
                 this.verlichting.Add(_0);
             }
 
-            dt = Database.DatabaseConnector.Instance.ExecuteQuery("SELECT manier FROM fragment_per_blok JOIN opkomst_afgaan ON fragment_per_blok.OPKOMST_ID = opkomst_afgaan.ID where fragment_id = " + id);
+            dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("SELECT manier FROM fragment_per_blok JOIN opkomst_afgaan ON fragment_per_blok.OPKOMST_ID = opkomst_afgaan.ID where fragment_id = " + id);
 
             if(dt.Rows.Count > 0)
             {
                 this.opkomst = (string)(dt.Rows[0].ItemArray[0] == DBNull.Value ? "" : dt.Rows[0].ItemArray[0]);
             }
 
-            dt = Database.DatabaseConnector.Instance.ExecuteQuery("SELECT manier FROM fragment_per_blok JOIN opkomst_afgaan ON fragment_per_blok.AFGAAN_ID = opkomst_afgaan.ID where fragment_id = " + id);
+            dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("SELECT manier FROM fragment_per_blok JOIN opkomst_afgaan ON fragment_per_blok.AFGAAN_ID = opkomst_afgaan.ID where fragment_id = " + id);
 
             if (dt.Rows.Count > 0)
             {

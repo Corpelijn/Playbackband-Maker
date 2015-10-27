@@ -37,7 +37,7 @@ namespace PBB_Web.Classes.Domain
             if (!beschikbareTalen.TryGetValue(id, out taal))
             {
 
-                DataTable dt = Database.DatabaseConnector.Instance.ExecuteQuery("select * from taal where id=" + id);
+                DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select * from taal where id=" + id);
                 if (dt.Rows.Count > 0)
                 {
                     taal = new Taal(id, (string)dt.Rows[0].ItemArray[1], (string)dt.Rows[0].ItemArray[2]);

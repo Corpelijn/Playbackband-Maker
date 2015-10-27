@@ -30,6 +30,8 @@ namespace PBB_Web.Domain
             menu.Add(new Navbar { Id = 17, nameOption = "Blank Page", controller = "Home", action = "Blank", status = true, isParent = false, parentId = 16 });
             menu.Add(new Navbar { Id = 18, nameOption = "Login Page", controller = "Home", action = "Login", status = true, isParent = false, parentId = 16 });
 
+            menu.Add(new Navbar { Id =20, nameOption = "Acties", controller = "Login", action = "dashboard", status = true, isParent = false, parentId = 0 });
+
             return menu.ToList();
         }
     }

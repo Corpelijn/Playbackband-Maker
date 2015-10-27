@@ -19,14 +19,24 @@ namespace PBB_Web.Classes.Database
 
         public DatabaseConnector()
         {
-            DatabaseConnector.Instance = this;
+            
         }
 
         #endregion
 
         #region "Properties"
 
-        public static DatabaseConnector Instance { get; private set; }
+        private static DatabaseConnector instance;
+        public static DatabaseConnector GetInstance()
+        {
+            if (instance == null || !instance.IsConnected())
+            {
+                instance = new DatabaseConnector();
+                instance.OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
+            }
+
+            return instance;
+        }
 
         #endregion
 

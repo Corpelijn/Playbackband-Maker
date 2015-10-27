@@ -21,7 +21,7 @@ namespace PBB_Web.Classes.Domain
         {
             DatabaseReader.CheckDatabaseConnection();
 
-            DataTable dt = DatabaseConnector.Instance.ExecuteQuery("SELECT * FROM ACCOUNT WHERE USERNAME=\'" + username + "\' AND PASSWORD=\'" + password + "\'");
+            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT * FROM ACCOUNT WHERE USERNAME=\'" + username + "\' AND PASSWORD=\'" + password + "\'");
             return dt.Rows.Count == 0 ? false : true;
         }
 
