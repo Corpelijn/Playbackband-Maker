@@ -136,5 +136,19 @@ namespace Businesslayer
             file.Save(this);
         }
 
+        public void VerwijderFragment(Fragment fragment)
+        {
+            for (int i = 0; i < blokken.Count; i++)
+            {
+                for (int j = 0; j < blokken[i].Fragmenten.Count; j++)
+                {
+                    if (blokken[i].Fragmenten[j] == fragment)
+                    {
+                        blokken[i].Fragmenten[j] = new Fragment(fragment.Nummer);
+                    }
+                }
+            }
+        }
+
     }
 }

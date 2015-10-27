@@ -11,6 +11,7 @@ namespace Businesslayer
     [Serializable]
     public class File
     {
+        [NonSerialized]
         private string filename;
         public static string defaultDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\playbackband\\playbackband" + Process.GetCurrentProcess().Id.ToString();
         public static string mainDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\playbackband";

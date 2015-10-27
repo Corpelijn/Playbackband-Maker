@@ -16,25 +16,28 @@ namespace PBB
         static extern bool LockWindowUpdate(IntPtr hWndLock);
 
 
-        public LiedjeControl()
+        public LiedjeControl(Playbackband current)
         {
             InitializeComponent();
 
             label4.Text = "";
             comboBox1.SelectedIndex = 0;
+            this.currentPBB = current;
         }
 
         private bool setPlayerActive = false;
         private MediaPlayer mp = null;
         private string filename = "";
+        private Playbackband currentPBB;
 
-        public LiedjeControl(Fragment song)
+        public LiedjeControl(Fragment song, Playbackband current)
         {
             InitializeComponent();
 
             label4.Text = "";
             liedje = song;
             this.rodeDraad = song.RodeDraad;
+            this.currentPBB = current;
 
             DateTime t = new DateTime(1990,1,1);
             if (liedje.BeginTijd != t)
@@ -333,6 +336,8 @@ namespace PBB
             {
                 //OnRenewMe();
                 comboBox1.SelectedIndex = 0;
+
+                this.currentPBB.VerwijderFragment(this.liedje);
                 this.filename = "";
                 this.liedje = new Fragment(this.liedje.Nummer);
                 this.mp = null;

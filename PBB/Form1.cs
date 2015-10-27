@@ -63,6 +63,7 @@ namespace PBB
 
             File f = new File(of.FileName);
             currentPBB = f.Open();
+            currentPBB.Filename = of.FileName;
 
             WorkingControlsEnabled(true);
 
@@ -209,7 +210,7 @@ namespace PBB
                 {
                     for (int j = 0; j < currentPBB.Blokken[i].AantalInBlok; j++)
                     {
-                        LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[i].Fragmenten[j]);
+                        LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[i].Fragmenten[j], currentPBB);
                         if (j == 0)
                         {
                             lc1.Blok = currentPBB.Blokken[i].Beschrijving;
@@ -242,7 +243,7 @@ namespace PBB
                         break;
                 }
 
-                LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[index_blok].Fragmenten[index_to_use]);
+                LiedjeControl lc1 = new LiedjeControl(currentPBB.Blokken[index_blok].Fragmenten[index_to_use], currentPBB);
                 if (index_to_use == 0)
                 {
                     lc1.Blok = currentPBB.Blokken[index_blok].Beschrijving;
