@@ -11,5 +11,17 @@ namespace PBB_Web.Classes.Domain
         private string voornaam;
         private string achternaam;
         // TODO: rechten
+
+        public Uitvoerder(int id, string voornaam, string achternaam)
+        {
+            this.id = id;
+            this.voornaam = voornaam;
+            this.achternaam = achternaam;
+        }
+
+        public override string ToString()
+        {
+            return this.voornaam;
+        }
     }
 }

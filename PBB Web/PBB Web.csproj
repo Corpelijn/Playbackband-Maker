@@ -118,12 +118,14 @@
     <Compile Include="Classes\ApplicationInformation.cs" />
     <Compile Include="Classes\Database\DatabaseConnector.cs" />
     <Compile Include="Classes\Database\DatabaseReader.cs" />
+    <Compile Include="Classes\Domain\Account.cs" />
     <Compile Include="Classes\Domain\Blok.cs" />
     <Compile Include="Classes\Domain\Fragment.cs" />
     <Compile Include="Classes\Domain\Liedje.cs" />
     <Compile Include="Classes\Domain\Playbackband.cs" />
     <Compile Include="Classes\Domain\Taal.cs" />
     <Compile Include="Classes\Domain\Uitvoerder.cs" />
+    <Compile Include="Classes\SessionClass.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\PlaybackbandController.cs" />

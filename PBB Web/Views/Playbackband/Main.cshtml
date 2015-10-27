@@ -5,32 +5,40 @@
 <br />
 
 <div class="col-md-8">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Beschikbare playbackbanden
-        </div>
-        <div class="panel-body">
-            @for (int i = 0; i < 10; i++)
-            {
-                <div class="col-md-3">
-                    <a href="Index">
-                        <div class="panel panel-green ">
-                            <div class="panel-heading">
-                                <h4 style="text-align: center; color: #ffffff;">Playbackband 2015</h4>
-                            </div>
 
-                            <div class="panel-footer">
-                                <div style="text-align: center">
-                                    23 januari 2015<br />
-                                    24 januari 2015
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+    <div class="col-md-12">
+        <h3>Selecteer hieronder een van de beschikbare playbackbanden om deze te kunnen inzien of bewerken.</h3>
+        <h5>Druk op de knop "Nieuwe playbackband toevoegen" om een nieuwe playbackband toe te voegen</h5>
+        <br />
+    </div>
+
+    <div class="col-md-12">
+        <div class="btn btn-success">Nieuwe playbackband toevoegen</div>
+    </div>
+
+    <div class="col-md-12">
+        <br />
+        <br />
+    </div>
+
+
+    <div>
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="col-md-2">
+                <a href="Index" style="text-decoration: none">
+                    <div class="btn btn-primary btn-block btn-outline">
+                        <h3>2015</h3>
+                    </div>
+                </a>
+            </div>
+                
+            if (i % 6 == 4)
+            {
+            <div class="col-md-12">
+                <br />
+            </div>
             }
-        </div>
+        }
     </div>
 </div>
-
-<div class="col-md-1"></div>

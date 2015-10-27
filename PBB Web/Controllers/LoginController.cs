@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PBB_Web.Classes;
+using PBB_Web.Classes.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,12 @@ namespace PBB_Web.Controllers
         [HttpPost]
         public ActionResult Index(string username, string password)
         {
+            if (Account.ValidateCredentials(username, password))
+            {
+                SessionClass.SetSession(Account.GetAccountFromDatabase(username));
+                return RedirectToAction("main", "playbackband");
+            }
+
             return View();
         }
 	}

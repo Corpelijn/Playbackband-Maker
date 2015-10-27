@@ -21,5 +21,19 @@ namespace PBB_Web.Classes.Domain
             this.titel = titel;
             this.taal = taal;
         }
+
+        public string GetTaal()
+        {
+            if (this.taal == null)
+            {
+                return "ERR.";
+            }
+            return this.taal.afkorting;
+        }
+
+        public string ToString()
+        {
+            return artiest + " / " + titel;
+        }
     }
 }
