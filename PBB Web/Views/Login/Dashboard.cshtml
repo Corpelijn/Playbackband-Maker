@@ -2,6 +2,11 @@
     ViewBag.Title = "Dashboard";
 }
 
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+
 <h2>Acties</h2>
 
 @foreach (PBB_Web.Classes.WebInfoDomain.DashboardControl dc in PBB_Web.Classes.WebInfo.GetInstance().GetDashboardControls())
@@ -24,7 +29,7 @@
 
 
                 <div class="panel-footer">
-                    <span class="pull-left" style="font-size: 8pt; color: black; min-height: 30px">@dc.Description</span>
+                    <span class="pull-left" style="font-size: 8pt; color: dimgray; min-height: 30px">@dc.Description</span>
                     <div class="clearfix"></div>
                 </div>
 

@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Luisteren";
+}
+
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+
+<h2>Luisteren</h2>
+

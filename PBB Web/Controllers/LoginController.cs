@@ -12,6 +12,9 @@ namespace PBB_Web.Controllers
     {
         public ActionResult Index()
         {
+            if (SessionClass.IsAuthorized())
+                return RedirectToAction("dashboard");
+
             return View();
         }
 
@@ -21,7 +24,7 @@ namespace PBB_Web.Controllers
             if (Account.ValidateCredentials(username, password))
             {
                 SessionClass.SetSession(Account.GetAccountFromDatabase(username));
-                return RedirectToAction("main", "playbackband");
+                return RedirectToAction("dashboard");
             }
 
             return View();
@@ -29,7 +32,14 @@ namespace PBB_Web.Controllers
 
         public ActionResult Dashboard()
         {
+            SessionClass.GetUser().settings.ShowNavbar = false;
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            SessionClass.LogOut();
+            return RedirectToAction("index");
         }
 	}
 }

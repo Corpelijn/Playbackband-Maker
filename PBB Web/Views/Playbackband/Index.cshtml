@@ -2,6 +2,11 @@
     ViewBag.Title = "Index";
 }
 
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+
 <div class="panel panel-default">
 
     <!-- /.panel-heading -->

@@ -2,6 +2,11 @@
     ViewBag.Title = "Main";
 }
 
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+
 <br />
 
 <div class="col-md-8">

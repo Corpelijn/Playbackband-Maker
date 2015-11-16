@@ -11,10 +11,12 @@ namespace PBB_Web.Classes.Domain
     {
         public string username;
         public Uitvoerder uitvoerder;
+        public AccountSettings settings;
 
         public Account(string username)
         {
             this.username = username;
+            this.settings = new AccountSettings();
         }
 
         public static bool ValidateCredentials(string username, string password)

@@ -31,9 +31,15 @@
         @Html.Action("Index", "Navbar")
 
         <div class="col-md-12">
-            @*<div id="page-wrapper">*@
+            @if (PBB_Web.Classes.SessionClass.GetUser().settings.ShowNavbar)
+            {
+                @Html.Raw("<div id=\"page-wrapper\">");
+            }
             @RenderBody()
-            @*</div>*@
+            @if (PBB_Web.Classes.SessionClass.GetUser().settings.ShowNavbar)
+            {
+                @Html.Raw("</div>");
+            }
         </div>
         <!-- /#page-wrapper -->
     </div>

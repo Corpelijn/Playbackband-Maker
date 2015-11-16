@@ -46,7 +46,7 @@ namespace PBB_Web.Classes
             }
             else
             {
-                return null;
+                return new Account("Anonymous");
             }
         }
 

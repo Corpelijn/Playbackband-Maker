@@ -10,6 +10,7 @@ namespace PBB_Web.Classes
     public class WebInfo
     {
         private List<DashboardControl> dashboardButtons;
+        
 
         private WebInfo()
         {
