@@ -1632,7 +1632,8 @@ namespace Businesslayer
 
                 // Copy the file to the temp directory, adjusting its bits/sample and number of
                 // channels if necessary.  And also ajust its volume using multiplier.
-                CopyAndConvert(pFileList[i], filename, highestBitsPerSample, outputStereo, multiplier);
+                //CopyAndConvert(pFileList[i], filename, highestBitsPerSample, outputStereo, multiplier);
+                CopyAndConvert(pFileList[i], filename, highestBitsPerSample, outputStereo, 1.0f);
 
                 // Create the WAVFile object in the scaledAudioFiles array, and open the scaled
                 // audio file with it.

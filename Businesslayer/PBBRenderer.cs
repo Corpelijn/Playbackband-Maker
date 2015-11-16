@@ -236,18 +236,17 @@ namespace Businesslayer
                     {
                         Process p = new Process();
                         p.StartInfo.FileName = "sox.exe";
-                        p.StartInfo.Arguments = "--rate 44100 --norm \"" + inputFile + "\" \"" + outputFile + "\"";
-                        //"/r /c \"" + inputFile + "\""));
+                        p.StartInfo.Arguments = "--rate 44100 --norm -D \"" + inputFile + "\" \"" + outputFile + "\"";
 
-                        p.StartInfo.RedirectStandardError = true;
-                        p.StartInfo.UseShellExecute = false;
+                        //p.StartInfo.RedirectStandardError = true;
+                        //p.StartInfo.UseShellExecute = false;
 
                         p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         p.Start();
                         p.WaitForExit();
 
-                        Console.WriteLine("SOX Output: ");
-                        Console.WriteLine(p.StandardError.ReadToEnd());
+                        //Console.WriteLine("SOX Output: ");
+                        //Console.WriteLine(p.StandardError.ReadToEnd());
                     }
                     catch (Exception ex)
                     {
