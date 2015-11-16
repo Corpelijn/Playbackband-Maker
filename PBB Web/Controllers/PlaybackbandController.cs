@@ -22,5 +22,11 @@ namespace PBB_Web.Controllers
             SessionClass.GetUser().settings.ShowNavbar = true;
             return View();
         }
+
+        public ActionResult Toevoegen()
+        {
+            SessionClass.GetUser().settings.ShowNavbar = true;
+            return View();
+        }
 	}
 }

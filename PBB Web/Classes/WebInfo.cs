@@ -31,7 +31,7 @@ namespace PBB_Web.Classes
 
         public void UpdateFromDatabase()
         {
-            DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select title, icon, description, color, controller, action, access_group from dashboardcontrol");
+            DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select title, icon, description, color, controller, action, access_recht, category from dashboardcontrol order by location_index");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 dashboardButtons.Add(new DashboardControl(dt.Rows[i].ItemArray));

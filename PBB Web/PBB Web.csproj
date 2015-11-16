@@ -122,8 +122,10 @@
     <Compile Include="Classes\Domain\AccountSettings.cs" />
     <Compile Include="Classes\Domain\Blok.cs" />
     <Compile Include="Classes\Domain\Fragment.cs" />
+    <Compile Include="Classes\Domain\GroepRecht.cs" />
     <Compile Include="Classes\Domain\Liedje.cs" />
     <Compile Include="Classes\Domain\Playbackband.cs" />
+    <Compile Include="Classes\Domain\Recht.cs" />
     <Compile Include="Classes\Domain\Taal.cs" />
     <Compile Include="Classes\Domain\Uitvoerder.cs" />
     <Compile Include="Classes\SessionClass.cs" />
@@ -918,6 +920,7 @@
     <Content Include="Views\Login\Dashboard.cshtml" />
     <Content Include="Views\Playbackband\Luisteren.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Playbackband\Toevoegen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Toevoegen";
+}
+
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+
+<br />
+
+<div class="col-md-12">
+    <h2>Nieuwe playbackband toevoegen</h2>
+</div>

@@ -7,11 +7,25 @@
     Response.Redirect("~");
 }
 
-<h2>Acties</h2>
+@{string last = "";}
 
 @foreach (PBB_Web.Classes.WebInfoDomain.DashboardControl dc in PBB_Web.Classes.WebInfo.GetInstance().GetDashboardControls())
 {
-    
+    if (last != dc.Category)
+    {
+        last = dc.Category;
+        <div class="col-md-12">
+            <h3><u>&nbsp;&nbsp;@dc.Category
+                @{string data = "";}
+                @for(int i = 0; i<30 - dc.Category.Length; i++)
+                {
+                    data += "_";
+                }
+                @data
+                </u>
+            </h3>
+        </div>
+    }
     <a href="@Url.Action(dc.Action, dc.Controller)">
         <div class="col-md-2">
             <div class="panel @dc.Color">
