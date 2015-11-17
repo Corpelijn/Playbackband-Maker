@@ -7,46 +7,45 @@
     Response.Redirect("~");
 }
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<div class="col-md-6">
 
-<script>
-    $(document).ready(function ()
-    {
-        $("#datepicker").datepicker();
-    });
-</script>
+<h2>Nieuwe playbackband toevoegen</h2>
 
 <br />
+<br />
+<br />
 
-<div class="col-md-12">
-    <h2>Nieuwe playbackband toevoegen</h2>
-
-    <br />
-    <br />
-
-    <div class="col-md-6">
-        <div class="col-md-8">
-            <div class="form-control-static">
-                Aantal blokken in de nieuwe playbackband
-            </div>
-        </div>
-        <div class="col-md-2">
-            <input class="form-control datepicker" type="datetime" />
-        </div>
-        <div class="col-md-2">
-            <input class="form-control" type="date" />
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="col-md-8">
-            <div class="form-control-static">
-                Aantal blokken in de nieuwe playbackband
-            </div>
-        </div>
-        <div class="col-md-3">
-            <input class="form-control" type="number" value="1" />
-        </div>
-    </div>
-    <div class="col-ms-8"></div>
+    <table class="table">
+        <tr>
+            <td width="50%"></td>
+            <td width="17%"><b>Dag 1</b></td>
+            <td width="8%"></td>
+            <td width="25%"><b>Dag 2</b></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-control-static">
+                    <b>Dagen van de playbackband</b>
+                </div>
+            </td>
+            <td colspan="2">
+                <input class="form-control" type="date" value="23-01-2015" />
+            </td>
+            <td>
+                <input class="form-control" type="date" value="24-01-2015" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-control-static">
+                    <b>Aantal blokken in de nieuwe playbackband</b>
+                </div>
+            </td>
+            <td>
+                <input class="form-control" type="number" value="7" min="2" max="10" />
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
 </div>
