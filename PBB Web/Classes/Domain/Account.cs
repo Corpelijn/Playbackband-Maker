@@ -80,5 +80,17 @@ namespace PBB_Web.Classes.Domain
                 index++;
             }
         }
+
+        public bool HasPermission(string permission)
+        {
+            for (int i = 0; i < groepen.Count; i++)
+            {
+                if (groepen[i].Contains(permission))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

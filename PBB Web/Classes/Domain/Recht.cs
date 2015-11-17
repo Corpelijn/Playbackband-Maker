@@ -29,5 +29,10 @@ namespace PBB_Web.Classes.Domain
             }
             return null;
         }
+
+        public override string ToString()
+        {
+            return description;
+        }
     }
 }

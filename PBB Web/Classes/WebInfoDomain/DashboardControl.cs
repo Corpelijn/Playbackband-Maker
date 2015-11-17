@@ -13,7 +13,7 @@ namespace PBB_Web.Classes.WebInfoDomain
         private string color;
         private string controller;
         private string action;
-        private int access;
+        private string access;
         private string category;
 
         public DashboardControl(object[] data)
@@ -25,7 +25,7 @@ namespace PBB_Web.Classes.WebInfoDomain
             controller = (string)(data[4] == DBNull.Value ? "" : data[4]);
             action = (string)(data[5] == DBNull.Value ? "" : data[5]);
 
-            access = Convert.ToInt32((data[6] == DBNull.Value ? "0" : data[6].ToString()));
+            access = (string)(data[6] == DBNull.Value ? "" : data[6]);
             category = (string)(data[7] == DBNull.Value ? "" : data[7]);
         }
 
@@ -65,7 +65,7 @@ namespace PBB_Web.Classes.WebInfoDomain
             set { action = value; }
         }
 
-        public int Access
+        public string Access
         {
             get { return access; }
             set { access = value; }

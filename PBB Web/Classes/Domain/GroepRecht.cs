@@ -39,5 +39,18 @@ namespace PBB_Web.Classes.Domain
             }
             return null;
         }
+
+        public bool Contains(string permission)
+        {
+            for (int i = 0; i < rechten.Count; i++)
+            {
+                if (rechten[i].ToString() == permission)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

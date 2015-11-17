@@ -31,7 +31,7 @@ namespace PBB_Web.Classes
 
         public void UpdateFromDatabase()
         {
-            DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select title, icon, description, color, controller, action, access_recht, category from dashboardcontrol order by location_index");
+            DataTable dt = Database.DatabaseConnector.GetInstance().ExecuteQuery("select title, icon, description, color, controller, action, recht.beschrijving, category from dashboardcontrol join recht on recht.id = dashboardcontrol.access_recht order by location_index");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 dashboardButtons.Add(new DashboardControl(dt.Rows[i].ItemArray));
@@ -40,7 +40,16 @@ namespace PBB_Web.Classes
 
         public List<DashboardControl> GetDashboardControls()
         {
-            return new List<DashboardControl>(dashboardButtons);
+            List<DashboardControl> controls = new List<DashboardControl>();
+            for (int i = 0; i < dashboardButtons.Count; i++)
+            {
+                if (SessionClass.GetUser().HasPermission(dashboardButtons[i].Access))
+                {
+                    controls.Add(dashboardButtons[i]);
+                }
+            }
+
+            return controls;
         }
     }
 }

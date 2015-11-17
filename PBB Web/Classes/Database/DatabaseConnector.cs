@@ -94,7 +94,7 @@ namespace PBB_Web.Classes.Database
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
 
             DataTable table = new DataTable();
