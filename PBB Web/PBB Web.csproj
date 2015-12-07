@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -105,6 +106,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -128,6 +130,7 @@
     <Compile Include="Classes\Domain\Recht.cs" />
     <Compile Include="Classes\Domain\Taal.cs" />
     <Compile Include="Classes\Domain\Uitvoerder.cs" />
+    <Compile Include="Classes\Exporters\Files\ExcelSheetExporter.cs" />
     <Compile Include="Classes\SessionClass.cs" />
     <Compile Include="Classes\WebInfo.cs" />
     <Compile Include="Classes\WebInfoDomain\DashboardControl.cs" />

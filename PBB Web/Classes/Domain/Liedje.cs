@@ -31,7 +31,7 @@ namespace PBB_Web.Classes.Domain
             return this.taal.afkorting;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return artiest + " / " + titel;
         }
