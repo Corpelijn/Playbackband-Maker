@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Rechten";
+}
+
+<h2>Rechten</h2>
+
+
+<div class="col-md-8 col-md-offset-2">
+    <table class="table table-hover">
+        <thead>
+            <th width="20%">Recht</th>
+            <th width="60%">Beschijving</th>
+            <th width="13%"></th>
+        </thead>
+        <tbody>
+            @foreach (PBB_Web.Classes.Domain.Recht r in PBB_Web.Classes.Database.NamedQueries.GetAlleRechten())
+            {
+                <tr>
+                    <td><span class="btn btn-success btn-xs">@r.code</span></td>
+                    <td>@r.description</td>
+                    <td>
+                        <a href="#" class="btn btn-primary btn-xs">Bewerken</a>
+                        <a href="#" class="btn btn-danger btn-xs">Verwijderen</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                @using (Html.BeginForm("Rechten", "Settings"))
+                {
+                    <td><input type="text" class="form-control" placeholder="Code" name="code" /></td>
+                    <td><input type="text" class="form-control" placeholder="Beschrijving" name="description" /></td>
+                    <td><button class="btn btn-success btn-sm col-md-11" type="submit">Toevoegen</button></td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+</div>

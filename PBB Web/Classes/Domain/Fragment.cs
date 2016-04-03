@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PBB_Web.Classes.Domain
 {
-    public class Fragment : IComparable
+    public class Fragment : IComparable, IDisposable
     {
         public int id;
         public int index;
@@ -125,6 +125,11 @@ namespace PBB_Web.Classes.Domain
                 }
             }
             return uitv;
+        }
+
+        public void Dispose()
+        {
+            // @if (taal.id == 1) { Html.Raw("class=\"active\""); } data-value="@Html.Raw(taal.taal) (@Html.Raw(taal.afkorting))"
         }
     }
 }

@@ -32,10 +32,33 @@ namespace PBB_Web.Classes.Database
             if (instance == null || !instance.IsConnected())
             {
                 instance = new DatabaseConnector();
-                instance.OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
+                try
+                {
+                    instance.OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
 
             return instance;
+        }
+
+        public static bool IsDatabaseConnectionAvailable()
+        {
+            try
+            {
+                if (GetInstance() != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -58,7 +81,9 @@ namespace PBB_Web.Classes.Database
             {
                 connectionString += ":" + port.ToString();
             }
-            connectionString += "/" + database;
+            connectionString += "/" + database + ";";
+
+            connectionString += "Connection Timeout=1;";
 
             this.connection = new Oracle.DataAccess.Client.OracleConnection(connectionString);
             this.connection.Open();
@@ -94,6 +119,10 @@ namespace PBB_Web.Classes.Database
             }
             catch (Exception ex)
             {
+                if (ex.Message == "ORA-03114: not connected to ORACLE")
+                {
+                    this.connection = null;
+                }
                 Console.WriteLine(ex.StackTrace);
             }
 

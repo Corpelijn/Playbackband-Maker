@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="col-md-12">
+    <h2>Liedje bewerken</h2>
+</div>
+
+<div class="col-md-6">
+    @*@using (Html.BeginForm("Edit", "Playbackband"))
+    {
+        *@<div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Fragment</h3>
+            </div>
+            <div class="panel-body">
+                @using (PBB_Web.Classes.Domain.Fragment fragment = (PBB_Web.Classes.Domain.Fragment)PBB_Web.Classes.SessionClass.GetItemFromSession("tempEditFragment"))
+                {
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label>Artiest</label>
+                            <input class="form-control" type="text" placeholder="Artiest" value="@fragment.liedje.artiest"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Titel</label>
+                            <input class="form-control" type="text" placeholder="Titel" value="@fragment.liedje.titel" />
+                            <br />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label>Taal</label>
+                            @{
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    foreach (PBB_Web.Classes.Domain.Taal taal in PBB_Web.Classes.Database.NamedQueries.GetAlleTalen())
+                    {
+                        items.Add(new SelectListItem() { Text = taal.taal + " (" + taal.afkorting + ")", Selected = taal.id == fragment.liedje.taal.id });
+                    }
+                            }
+                            @Html.DropDownList("te", items, new { @class = "form-control" })
+                            <br />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Rode draad</label>
+                            <br />
+                            <input type="checkbox" @if (fragment.rodedraad) { Html.Raw("checked"); } />
+                            Dit is een fragment van de rode draad
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-6">
+                                <label>Begintijd</label>
+                                <input class="form-control" type="time" value="@fragment.begintijd" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Eindtijd</label>
+                                <input class="form-control" type="time" value="@fragment.eindtijd" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @*}*@
+        </div>

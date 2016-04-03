@@ -4,6 +4,10 @@
 
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
 
 <div class="col-md-4">
     <br />
@@ -20,23 +24,39 @@
             Gebruikersvalidatie
         </div>
         <div class="panel-body">
-            <br />
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                @using (Html.BeginForm())
-                {
-                    <fieldset>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Gebruikersnaam" name="username" type="text" autofocus>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Wachtwoord" name="password" type="password" value="">
-                        </div>
-                        <!-- Change this to a button or input when using this as a form -->
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Inloggen">
-                    </fieldset>
-                }
-            </div>
+            @if (PBB_Web.Classes.Database.DatabaseConnector.IsDatabaseConnectionAvailable())
+            {
+                <br />
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    @using (Html.BeginForm())
+                    {
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Gebruikersnaam" name="username" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Wachtwoord" name="password" type="password" value="">
+                            </div>
+                            <!-- Change this to a button or input when using this as a form -->
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Inloggen">
+                        </fieldset>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <center style="color: red;">
+                    De connectie naar de database is niet beschikbaar op dit moment.<br />
+                    Inloggen is daarom niet mogelijk op dit moment.<br />
+                    <br />
+                    Probeer het later nog eens of probeer de pagina te verversen.
+                </center>
+                    </div>
+                <div class="col-md-1"></div>
+            }
         </div>
         <div class="panel-footer" style="font-size: 8pt">
             <i>Deze webpagina is alleen bedoeld voor de makers van de playbackband.<br />

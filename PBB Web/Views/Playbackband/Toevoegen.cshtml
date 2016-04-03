@@ -9,18 +9,20 @@
 
 <div class="col-md-6">
 
-<h2>Nieuwe playbackband toevoegen</h2>
+    <h2>Nieuwe playbackband toevoegen</h2>
 
-<br />
-<br />
-<br />
+    <br />
+    <br />
+    <br />
 
+    @using(Html.BeginForm("Toevoegen1","Playbackband"))
+    {
     <table class="table">
         <tr>
-            <td style="width:50%"></td>
-            <td style="width:17%"><b>Dag 1</b></td>
-            <td style="width:8%"></td>
-            <td style="width:25%"><b>Dag 2</b></td>
+            <td style="width: 50%"></td>
+            <td style="width: 17%"><b>Dag 1</b></td>
+            <td style="width: 8%"></td>
+            <td style="width: 25%"><b>Dag 2</b></td>
         </tr>
         <tr>
             <td>
@@ -29,10 +31,10 @@
                 </div>
             </td>
             <td colspan="2">
-                <input class="form-control" type="date" value="23-01-2015" />
+                <input class="form-control" type="date" value="23-01-2015" name="dag1" />
             </td>
             <td>
-                <input class="form-control" type="date" value="24-01-2015" />
+                <input class="form-control" type="date" value="24-01-2015" name="dag2" />
             </td>
         </tr>
         <tr>
@@ -42,10 +44,31 @@
                 </div>
             </td>
             <td>
-                <input class="form-control" type="number" value="7" min="2" max="10" />
+                <input class="form-control" type="number" value="5" min="2" max="10" name="blokken" />
             </td>
             <td></td>
             <td></td>
         </tr>
+        <tr>
+            <td>
+                <b>Intro blok toevoegen</b>
+            </td>
+            <td colspan="3"><input type="checkbox" checked name="intro" /></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>Finale blok toevoegen</b>
+            </td>
+            <td colspan="3"><input type="checkbox" checked name="finale"/></td>
+        </tr>
     </table>
+
+    <br />
+    <br />
+    
+    <a href="#" class="col-md-2 btn btn-success disabled">< Vorige</a>
+    <div class="col-md-8"></div>
+    <button type="submit" class="col-md-2 btn btn-success">Volgende ></button>
+    }
 </div>

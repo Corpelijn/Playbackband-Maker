@@ -11,21 +11,23 @@ namespace PBB_Web.Classes.Domain
     {
         public int id;
         public string description;
+        public string code;
 
-        public Recht(int id, string description)
+        public Recht(int id, string description, string code)
         {
             this.id = id;
             this.description = description;
+            this.code = code;
         }
 
         public static Recht GetRechtFromId(int id)
         {
-            DatabaseReader.CheckDatabaseConnection();
+            if (!DatabaseConnector.IsDatabaseConnectionAvailable()) return null;
 
-            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT BESCHRIJVING FROM RECHT WHERE ID=" + id);
+            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT BESCHRIJVING, CODE FROM RECHT WHERE ID=" + id);
             if (dt.Rows.Count > 0)
             {
-                return new Recht(id, dt.Rows[0].ItemArray[0].ToString());
+                return new Recht(id, dt.Rows[0].ItemArray[0].ToString(), dt.Rows[0].ItemArray[1].ToString());
             }
             return null;
         }

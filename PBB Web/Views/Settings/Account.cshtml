@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Account";
+}
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+<h2>Account instellingen</h2>
+
+<br />
+<br />
+<div class="tooltip-demo">
+    <table class="table table-hover">
+        <tr>
+            <th>Gebruiker</th>
+            <th>Gebruikersnaam</th>
+            <th>Wachtwoord</th>
+            <th>Rechten</th>
+            <th>Groepen</th>
+        </tr>
+        @foreach (PBB_Web.Classes.Domain.Account acc in PBB_Web.Classes.Domain.Account.GetAccounts())
+        {
+            <tr>
+                <td>@acc.uitvoerder.ToString()</td>
+                <td>@acc.username</td>
+                <td>••••••••</td>
+                <td>
+                    @foreach (PBB_Web.Classes.Domain.Recht r in acc.rechten)
+                    {
+                        <button data-original-title="@r.description" type="button" title="" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom">@r.code</button> 
+                    }
+                </td>
+                <td>
+                    @foreach (PBB_Web.Classes.Domain.GroepRecht gr in acc.groepen)
+                    {
+                        <button data-original-title="@gr.naam" type="button" title="" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom">@gr.code</button> 
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

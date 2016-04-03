@@ -44,42 +44,54 @@
                 </thead>
                 <tbody>
                     @{int index = 0; int totalTime = 0;}
-                    @for (int i = 0; i < PBB_Web.Classes.Domain.Playbackband.Instance.blokken.Count; i++)
+                    @if (PBB_Web.Classes.Domain.Playbackband.Instance == null || !PBB_Web.Classes.Domain.Playbackband.Instance.IsValid())          
                     {
-                        for (int j = 0; j < PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten.Length; j++)
+                        Response.Redirect(Url.Action("main", "playbackband"));
+                    }
+                    @for (int i = 0; i < PBB_Web.Classes.Domain.Playbackband.Instance.Blokken.Count; i++)
+                    {
+                        for (int j = 0; j < PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten.Length; j++)
                         {
-                            <tr class=" @if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j] != null) { if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].rodedraad) { @("danger") }} ">
+                            <tr class=" @if (PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j] != null)
+                                        {
+                                            if (PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].rodedraad)
+                                            { @("danger") }} ">
                             
                                 
                             <td>@((index += 1).ToString("00"))</td>
                                 
 
-                            @if (PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j] != null)
+                            @if (PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j] != null)
                             {            
                                 <td>
                                     @if (j == 0)
-                                    { <b> @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].titel &nbsp;</b> }
-                                    @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].liedje.ToString()
+                                    { <b> @PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].titel &nbsp;</b> }
+                                    @PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].liedje.ToString()
                                 </td>
-                                <td>@PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].liedje.GetTaal()</td>
-                                <td style="text-align: center;">@TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].begintijd).ToString("mm\\.ss") - @TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].eindtijd).ToString("mm\\.ss")</td>
-                                <td>@(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].eindtijd - PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].begintijd)</td>
-                                <td style="text-align: center;">@TimeSpan.FromSeconds((double)(totalTime += (int)(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].eindtijd - PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].begintijd))).ToString("mm\\.ss")</td>
-                                <td>@PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].GetUitvoerders() @(PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].uitvoerwijze == "" ? "" : "/") @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].uitvoerwijze</td>
-                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].GetVerlichting()</td>
+                                <td>@PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].liedje.GetTaal()</td>
+                                <td style="text-align: center;">@TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].begintijd).ToString("mm\\.ss") - @TimeSpan.FromSeconds(PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].eindtijd).ToString("mm\\.ss")</td>
+                                <td>@(PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].eindtijd - PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].begintijd)</td>
+                                <td style="text-align: center;">@TimeSpan.FromSeconds((double)(totalTime += (int)(PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].eindtijd - PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].begintijd))).ToString("mm\\.ss")</td>
+                                <td>@PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].GetUitvoerders() @(PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].uitvoerwijze == "" ? "" : "/") @PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].uitvoerwijze</td>
+                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].GetVerlichting()</td>
                                 <td></td>
-                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].opkomst</td>
-                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].fragmenten[j].afgaan</td>
+                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].opkomst</td>
+                                <td style="text-align: center;">@PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].fragmenten[j].afgaan</td>
                                 <td></td>
                                 <td style="text-align: center;">
-                                    <div class="btn btn-primary btn-xs">Bewerken</div>
+                                    @using(Html.BeginForm("IndexEdit","playbackband"))
+                                    {
+                                        <input type="hidden" value="@i" name="blok" />
+                                        <input type="hidden" value="@j" name="fragment" />
+                                        <button class="btn btn-primary btn-xs" type="submit">Bewerken</button>
+                                    }
                                 </td>
                             }
                             else
                             {
                                 <td>
                                     @if (j == 0)
-                                    { <b> @PBB_Web.Classes.Domain.Playbackband.Instance.blokken[i].titel &nbsp;</b> }
+                                    { <b> @PBB_Web.Classes.Domain.Playbackband.Instance.Blokken[i].titel &nbsp;</b> }
                                     <i style="color: darkgray;">Klik op "Toevoegen" om hier een liedje in te voegen</i>
                                 </td>
                                 <td></td>

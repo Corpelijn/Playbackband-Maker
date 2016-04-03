@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Toevoegen";
+}
+
+@if (!PBB_Web.Classes.SessionClass.IsAuthorized())
+{
+    Response.Redirect("~");
+}
+@if (PBB_Web.Classes.Domain.Playbackband.Instance == null || PBB_Web.Classes.Domain.Playbackband.Instance.IsValid())
+{
+    Response.Redirect(Url.Action("Toevoegen", "Playbackband"));
+}
+
+<div class="col-md-6">
+
+    <h2>Nieuwe playbackband toevoegen</h2>
+    <h3>Blokgrootte specificeren</h3>
+
+    <br />
+
+    @using (Html.BeginForm("Toevoegen2", "Playbackband"))
+    {
+        <table class="table">
+            <thead>
+                <td width="30%"><b>Blok</b></td>
+                <td width="20%"><b>Aantal nummers in blok</b></td>
+            </thead>
+            <tbody>
+                @foreach (PBB_Web.Classes.Domain.Blok b in PBB_Web.Classes.Domain.Playbackband.Instance.Blokken)
+                {
+                    <tr>
+                        <td><b>@b.titel</b></td>
+                        <td><input class="form-control" type="number" value="@b.aantal" max="20" min="1" name="@Html.Raw("blok" + b.index)"/></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+    
+        <a href="@Url.Action("Toevoegen", "Playbackband")" class="col-md-2 btn btn-success">< Vorige</a>
+        <div class="col-md-5"></div>
+        <div class="col-md-3">
+            <button type="submit" class="col-md-11 btn btn-info disabled">Geavanceerd</button>
+            <div class="col-md-1"></div>
+        </div>
+        
+        <button type="submit" class="col-md-2 btn btn-success">Voltooien</button>
+    }
+
+    <br />
+    <br />
+    <br />
+</div>

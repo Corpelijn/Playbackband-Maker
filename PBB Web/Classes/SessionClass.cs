@@ -16,6 +16,8 @@ namespace PBB_Web.Classes
         {
             HttpContext.Current.Session["User"] = null;
             HttpContext.Current.Session["User"] = user;
+
+            GetUser().settings.ShowTopBar = true;
         }
 
         /// <summary>
@@ -53,6 +55,38 @@ namespace PBB_Web.Classes
         public static void LogOut()
         {
             HttpContext.Current.Session["User"] = null;
+            RemovePlaybackband();
+        }
+
+        public static void SetPlaybackband(Playbackband pbb)
+        {
+            HttpContext.Current.Session["PBB"] = null;
+            HttpContext.Current.Session["PBB"] = pbb;
+        }
+
+        public static void RemovePlaybackband()
+        {
+            HttpContext.Current.Session["PBB"] = null;
+        }
+
+        public static Playbackband GetPlaybackband()
+        {
+            return (Playbackband)HttpContext.Current.Session["PBB"];
+        }
+
+        public static void AddItemToSession(string key, object data)
+        {
+            HttpContext.Current.Session[key] = data;
+        }
+
+        public static object GetItemFromSession(string key)
+        {
+            return HttpContext.Current.Session[key];
+        }
+
+        public static void RemoveItemFromSession(string key)
+        {
+            HttpContext.Current.Session[key] = null;
         }
     }
 }

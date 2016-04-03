@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-md-12">
-            <div class="btn btn-success">Nieuwe playbackband toevoegen</div>
+            <a href="toevoegen" class="btn btn-success">Nieuwe playbackband toevoegen</a>
         </div>
 
         <div class="col-md-12">
@@ -29,25 +29,29 @@
 
 
         <div>
-            @for (int i = 0; i < 10; i++)
-            {
-                <div class="col-md-2">
-                    <a href="Index" style="text-decoration: none">
-                        <div class="btn btn-primary btn-block btn-outline">
-                            <h3>2015</h3>
-                        </div>
-                    </a>
-                </div>
-                
-                if (i % 6 == 4)
+            @{
+                int i = 0;
+                i++;
+                foreach (PBB_Web.Classes.Domain.Playbackband pbb in PBB_Web.Classes.Database.NamedQueries.GetAllePlaybackband())
                 {
-                <div class="col-md-12">
-                    <br />
-                </div>
+                    <div class="col-md-2">
+                        @using (Html.BeginForm("Main", "Playbackband"))
+                        {
+                            <input type="hidden" name="id" value="@pbb.id" />
+                            <button class="btn btn-primary btn-block btn-outline" type="submit">
+                                <h3>@pbb.dag1.Year</h3>
+                            </button>
+                        }
+                    </div>
+                
+                    if (i % 6 == 4)
+                    {
+                        <div class="col-md-12">
+                            <br />
+                        </div>
+                    }
                 }
             }
-
-
         </div>
 
 

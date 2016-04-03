@@ -10,8 +10,10 @@ namespace PBB_Web.Classes.Domain
         public AccountSettings()
         {
             ShowNavbar = false;
+            ShowTopBar = false;
         }
 
         public bool ShowNavbar { get; set; }
+        public bool ShowTopBar { get; set; }
     }
 }

@@ -11,22 +11,24 @@ namespace PBB_Web.Classes.Domain
     {
         public int id;
         public string naam;
+        public string code;
         public List<Recht> rechten;
 
-        public GroepRecht(int id, string naam)
+        public GroepRecht(int id, string naam, string code)
         {
             rechten = new List<Recht>();
+            this.code = code;
             this.naam = naam;
         }
 
         public static GroepRecht GetGroepFromId(int id)
         {
-            DatabaseReader.CheckDatabaseConnection();
+            if (!DatabaseConnector.IsDatabaseConnectionAvailable()) return null;
 
-            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT NAAM FROM GROEP WHERE ID=" + id);
+            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT NAAM, CODE FROM GROEP WHERE ID=" + id);
             if (dt.Rows.Count > 0)
             {
-                GroepRecht gr = new GroepRecht(id, (string)dt.Rows[0].ItemArray[0]);
+                GroepRecht gr = new GroepRecht(id, (string)dt.Rows[0].ItemArray[0], dt.Rows[0].ItemArray[1].ToString());
                 dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT RECHT_ID FROM RECHT_PER_GROEP WHERE GROEP_ID=" + id);
                 if (dt.Rows.Count > 0)
                 {

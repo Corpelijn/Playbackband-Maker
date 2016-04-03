@@ -9,23 +9,23 @@ namespace PBB_Web.Classes.Database
 {
     public class DatabaseReader
     {
-        public static void ReadDatabase()
+        public static void ReadPlaybackbandFromDatabase(int id)
         {
-            CheckDatabaseConnection();
+            if (!DatabaseConnector.IsDatabaseConnectionAvailable()) return;
 
-            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT * FROM PLAYBACKBAND");
+            DataTable dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT * FROM PLAYBACKBAND WHERE ID = " + id.ToString());
             new Playbackband((int)(decimal)dt.Rows[0].ItemArray[0], (DateTime)dt.Rows[0].ItemArray[1], (DateTime)dt.Rows[0].ItemArray[2]);
 
-            dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT * FROM BLOK where playbackband_id = " + Playbackband.Instance.id);
+            dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT * FROM BLOK where playbackband_id = " + id.ToString());
 
             foreach (DataRow row in dt.Rows)
             {
                 Playbackband.Instance.AddBlok(new Blok((int)(decimal)row[0], Playbackband.Instance, (string)row[2], (int)(decimal)row[3], (int)(decimal)row[4]));
             }
 
-            foreach (Blok b in Playbackband.Instance.blokken)
+            foreach (Blok b in Playbackband.Instance.Blokken)
             {
-                dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT fragment.id, begintijd, eindtijd, fade_in, fade_out, blok_id, fragment.positie_index, uitvoerwijze, rode_draad " + 
+                dt = DatabaseConnector.GetInstance().ExecuteQuery("SELECT fragment.id, begintijd, eindtijd, fade_in, fade_out, blok_id, fragment.positie_index, uitvoerwijze, rode_draad " +
                     "FROM fragment join fragment_per_blok on fragment.id = fragment_per_blok.fragment_id where blok_id = " + b.id);
                 foreach (DataRow row in dt.Rows)
                 {
@@ -34,23 +34,25 @@ namespace PBB_Web.Classes.Database
                     f.liedje = new Liedje((int)(decimal)dt.Rows[0].ItemArray[0], null, (string)dt.Rows[0].ItemArray[2], (string)dt.Rows[0].ItemArray[3], Taal.GetTaalFromID((int)(decimal)dt.Rows[0].ItemArray[4]));
                 }
             }
+
+            SessionClass.GetPlaybackband().SetValid();
         }
 
-        public static void CheckDatabaseConnection()
-        {
-            if (DatabaseConnector.GetInstance() == null)
-            {
-                new DatabaseConnector();
-                DatabaseConnector.GetInstance().OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
-            }
-            else
-            {
-                if (!DatabaseConnector.GetInstance().IsConnected())
-                {
-                    new DatabaseConnector();
-                    DatabaseConnector.GetInstance().OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
-                }
-            }
-        }
+        //public static bool CheckDatabaseConnection()
+        //{
+            //if (DatabaseConnector.GetInstance() == null)
+            //{
+            //    new DatabaseConnector();
+            //    DatabaseConnector.GetInstance().OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
+            //}
+            //else
+            //{
+            //    if (!DatabaseConnector.GetInstance().IsConnected())
+            //    {
+            //        new DatabaseConnector();
+            //        DatabaseConnector.GetInstance().OpenConnection("192.168.94.5", 1521, "xe", "PBB", "PBB");
+            //    }
+            //}
+        //}
     }
 }

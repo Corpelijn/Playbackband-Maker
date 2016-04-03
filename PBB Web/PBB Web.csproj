@@ -120,6 +120,7 @@
     <Compile Include="Classes\ApplicationInformation.cs" />
     <Compile Include="Classes\Database\DatabaseConnector.cs" />
     <Compile Include="Classes\Database\DatabaseReader.cs" />
+    <Compile Include="Classes\Database\NamedQueries.cs" />
     <Compile Include="Classes\Domain\Account.cs" />
     <Compile Include="Classes\Domain\AccountSettings.cs" />
     <Compile Include="Classes\Domain\Blok.cs" />
@@ -143,7 +144,7 @@
     </Compile>
     <Compile Include="Models\Navbar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\SettingsController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\bootstrap-social\.gitignore" />
@@ -924,6 +925,10 @@
     <Content Include="Views\Playbackband\Luisteren.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Playbackband\Toevoegen.cshtml" />
+    <Content Include="Views\Settings\Account.cshtml" />
+    <Content Include="Views\Settings\Rechten.cshtml" />
+    <Content Include="Views\Playbackband\Toevoegen2.cshtml" />
+    <Content Include="Views\Playbackband\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

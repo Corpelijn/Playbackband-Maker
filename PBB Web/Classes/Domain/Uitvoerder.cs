@@ -10,7 +10,6 @@ namespace PBB_Web.Classes.Domain
         private int id;
         private string voornaam;
         private string achternaam;
-        // TODO: rechten
 
         public Uitvoerder(int id, string voornaam, string achternaam)
         {
