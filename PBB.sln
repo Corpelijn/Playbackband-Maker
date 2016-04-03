@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Businesslayer", "Businessla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cleaner", "Cleaner\Cleaner.csproj", "{C0BCFF88-1B22-45D0-BD94-12E75FF83308}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "New Windows Version", "New Windows Version", "{0FFD41EE-E9AE-4B85-BC26-0DBB933013C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbbcore", "core\pbbcore.csproj", "{4837F726-15D7-480E-A729-E3076A178491}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pbbwin", "pbbwin\pbbwin.csproj", "{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,8 +31,20 @@ Global
 		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0BCFF88-1B22-45D0-BD94-12E75FF83308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4837F726-15D7-480E-A729-E3076A178491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4837F726-15D7-480E-A729-E3076A178491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4837F726-15D7-480E-A729-E3076A178491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4837F726-15D7-480E-A729-E3076A178491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4837F726-15D7-480E-A729-E3076A178491} = {0FFD41EE-E9AE-4B85-BC26-0DBB933013C1}
+		{AB342B9D-CCDE-4AB4-AFC0-48D0CB19241E} = {0FFD41EE-E9AE-4B85-BC26-0DBB933013C1}
 	EndGlobalSection
 EndGlobal
